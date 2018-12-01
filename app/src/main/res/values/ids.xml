@@ -5,4 +5,25 @@
     <item name="tv_home_score" type="id"></item>
     <item name="tv_away_score" type="id"></item>
     <item name="tv_away_team" type="id"></item>
+    <item name="img_home_logo" type="id"/>
+    <item name="tv_home_name" type="id"/>
+    <item name="tv_detail_home_score" type="id"/>
+    <item name="tv_detail_away_score" type="id"/>
+    <item name="img_away_logo" type="id"/>
+    <item name="tv_away_name" type="id"/>
+    <item name="progress_bar" type="id"/>
+    <item name="tv_home_goal" type="id"/>
+    <item name="tv_away_goal" type="id"/>
+    <item name="tv_home_shot" type="id"/>
+    <item name="tv_away_shot" type="id"/>
+    <item name="tv_home_goal_keeper" type="id"/>
+    <item name="tv_away_goal_keeper" type="id"/>
+    <item name="tv_away_defense" type="id"/>
+    <item name="tv_home_defense" type="id"/>
+    <item name="tv_home_midfield" type="id"/>
+    <item name="tv_away_midfield" type="id"/>
+    <item name="tv_home_forward" type="id"/>
+    <item name="tv_away_forward" type="id"/>
+    <item name="tv_away_substitutes" type="id"/>
+    <item name="tv_home_substitutes" type="id"/>
 </resources>

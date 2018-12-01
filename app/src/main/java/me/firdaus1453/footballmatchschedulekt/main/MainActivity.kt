@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         movePastFragment()
-
     }
 
     private fun movePastFragment() {
@@ -62,7 +61,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun moveFavoriteFragment() {
         toolbar.title = "Favorite Match"
-        val fragment = FavoriteMatchFragment()
+        val bundle = Bundle()
+        bundle.putInt(MatchFragment.KEY_MENU, 3)
+        val fragment = MatchFragment()
+        fragment.arguments = bundle
         addFragment(fragment)
     }
 
