@@ -2,10 +2,11 @@ package me.firdaus1453.footballmatchschedulekt.model.favorite
 
 data class FavoriteModel(
     val id: Long?, val eventId: String?,
-    val idHome: String?,val teamHome: String?, val scoreHome: String?,
-    val idAway: String?,val teamAway: String?, val scoreAway: String?,    val eventDate: String?
+    val idHome: String?, val teamHome: String?, val scoreHome: String?,
+    val idAway: String?, val teamAway: String?, val scoreAway: String?,
+    val eventDate: String?, val eventTime: String?
 
-    ) {
+) {
     companion object {
         const val TABLE_FAVORITE: String = "TABLE_FAVORITE"
         const val ID: String = "ID"
@@ -17,5 +18,6 @@ data class FavoriteModel(
         const val TEAM_AWAY: String = "TEAM_AWAY"
         const val SCORE_AWAY: String = "SCORE_AWAY"
         const val EVENT_DATE: String = "EVENT_DATE"
+        const val EVENT_TIME: String = "EVENT_TIME"
     }
 }

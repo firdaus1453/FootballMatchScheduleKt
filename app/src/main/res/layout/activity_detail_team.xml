@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".mvp.team.detailteam.DetailTeamActivity">
+
+<ProgressBar
+        android:id="@+id/progressbar_team_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+<LinearLayout
+        android:id="@+id/linear_team_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/colorPrimary">
+
+    <ImageView
+            android:id="@+id/img_team_badge_detail"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="15dp"
+            android:contentDescription="@string/app_name" />
+
+    <TextView
+            android:id="@+id/tv_team_name_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white" />
+
+    <TextView
+            android:id="@+id/tv_team_formed_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white" />
+
+    <TextView
+            android:id="@+id/tv_team_stadium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white" />
+
+</LinearLayout>
+
+<android.support.design.widget.TabLayout
+        android:id="@+id/tab_team"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear_team_detail"
+        app:tabMode="fixed"
+        app:tabBackground="@color/colorPrimary"
+        app:tabIndicatorColor="@android:color/white"
+        app:tabTextColor="@android:color/darker_gray"
+        app:tabSelectedTextColor="@android:color/white" />
+
+<android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_team"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tab_team" />
+
+</RelativeLayout>

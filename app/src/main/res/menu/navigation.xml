@@ -3,13 +3,13 @@
 
     <item
             android:id="@+id/navigation_past"
-            android:icon="@drawable/ic_past"
-            android:title="@string/past_match"/>
+            android:icon="@drawable/ic_date"
+            android:title="@string/match"/>
 
     <item
             android:id="@+id/navigation_next"
-            android:icon="@drawable/ic_next"
-            android:title="@string/next_match"/>
+            android:icon="@drawable/ic_team"
+            android:title="@string/teams"/>
 
     <item
             android:id="@+id/navigation_favorite"

@@ -1,17 +1,15 @@
-package me.firdaus1453.footballclubmodul6.adapter
+package me.firdaus1453.footballmatchschedulekt.adapter
 
 import android.graphics.Typeface
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import me.firdaus1453.footballclubmodul6.DateTime
 import me.firdaus1453.footballmatchschedulekt.R
+import me.firdaus1453.footballmatchschedulekt.Utils.DateTime
 import me.firdaus1453.footballmatchschedulekt.model.favorite.FavoriteModel
-import me.firdaus1453.footballmatchschedulekt.model.nextmatchmodel.EventsItem
 import org.jetbrains.anko.*
 import org.jetbrains.anko.cardview.v7.cardView
 
@@ -32,7 +30,7 @@ class FavoriteAdapter(private val teams: List<FavoriteModel>, private val listen
         private val scoreAwayTeam: TextView = view.findViewById(R.id.tv_away_score)
 
         fun bindItem(teams: FavoriteModel, listener: (FavoriteModel) -> Unit) {
-            matchDate.text = DateTime.getLongDate(teams.eventDate)
+            matchDate.text = "${DateTime.getLongDate(teams.eventDate)} \n ${DateTime.timeFormat(teams.eventTime)}"
             nameHomeTeam.text = teams.teamHome
             nameAwayteam.text = teams.teamAway
 

@@ -12,23 +12,22 @@ import android.view.MenuItem
 import android.widget.*
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
-import me.firdaus1453.footballclubmodul6.DateTime
-import me.firdaus1453.footballclubmodul6.invisible
-import me.firdaus1453.footballclubmodul6.network.ApiRepository
-import me.firdaus1453.footballclubmodul6.visible
 import me.firdaus1453.footballmatchschedulekt.R
 import me.firdaus1453.footballmatchschedulekt.R.id.menu_favorites
-import me.firdaus1453.footballmatchschedulekt.model.favorite.FavoriteModel
+import me.firdaus1453.footballmatchschedulekt.Utils.DateTime
+import me.firdaus1453.footballmatchschedulekt.Utils.invisible
+import me.firdaus1453.footballmatchschedulekt.Utils.visible
 import me.firdaus1453.footballmatchschedulekt.model.nextmatchmodel.EventsItem
 import me.firdaus1453.footballmatchschedulekt.model.teammodel.TeamsItem
-import me.firdaus1453.footballmatchschedulekt.mvp.match.MatchFragment.Companion.swipeRefresh
+import me.firdaus1453.footballmatchschedulekt.network.ApiRepository
 import org.jetbrains.anko.*
 import org.jetbrains.anko.cardview.v7.cardView
 import org.jetbrains.anko.design.snackbar
 
 const val KEY_DETAIL = "KEY_DETAIL"
 
-class DetailActivity : AppCompatActivity(), DetailView {
+class
+DetailActivity : AppCompatActivity(), DetailView {
     private lateinit var idEvent: String
 
     private var menuFavorites: Menu? = null
@@ -98,10 +97,10 @@ class DetailActivity : AppCompatActivity(), DetailView {
             menu_favorites -> {
                 if (isFavorite) {
                     presenter.removeFavorit(this, teams)
-                    snackbar(progressBar, "Terhapus").show()
+                    progressBar.snackbar("Terhapus")
                 } else {
                     presenter.addToFavorite(this, teams)
-                    snackbar(progressBar, "Tersimpan").show()
+                    progressBar.snackbar("Tersimpan")
                 }
 
                 isFavorite = !isFavorite
@@ -127,7 +126,6 @@ class DetailActivity : AppCompatActivity(), DetailView {
     }
 
     override fun showMatchDetail(data: List<EventsItem>) {
-        swipeRefresh.isRefreshing = false
         teams.clear()
         teams.addAll(data)
         Log.i("debug idHome", teams[0].idHomeTeam.toString())
@@ -142,10 +140,11 @@ class DetailActivity : AppCompatActivity(), DetailView {
     }
 
     private fun showData() {
-        date.text = DateTime.getLongDate(teams[0].dateEvent)
+        date.text = "${DateTime.getLongDate(teams[0].dateEvent)} \n ${DateTime.timeFormat(teams[0].strTime)}"
         tvHomeName.text = teams[0].strHomeTeam
         tvAwayName.text = teams[0].strAwayTeam
         if (teams[0].intHomeScore != null || teams[0].intAwayScore != null) {
+            Log.i("case null", "Masuk tidak null")
             tvHomeScore.text = teams[0].intHomeScore.toString()
             tvAwayScore.text = teams[0].intAwayScore.toString()
             tvAwayGoal.text = teams[0].strAwayGoalDetails.toString()
@@ -163,8 +162,8 @@ class DetailActivity : AppCompatActivity(), DetailView {
             tvHomeMidfield.text = teams[0].strHomeLineupMidfield.toString()
             tvHomeForward.text = teams[0].strHomeLineupForward.toString()
             tvHomeSubstitute.text = teams[0].strHomeLineupSubstitutes.toString()
-
         } else {
+            Log.i("case null", "Masuk null")
             tvHomeScore.text = "0"
             tvAwayScore.text = "0"
         }
@@ -474,7 +473,6 @@ class DetailActivity : AppCompatActivity(), DetailView {
     override fun hideLoading() {
         progressBar.invisible()
     }
-
 
 
     private fun setFavorite() {

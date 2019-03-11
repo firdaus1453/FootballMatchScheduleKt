@@ -6,9 +6,8 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import me.firdaus1453.footballmatchschedulekt.Fragment.FavoriteMatchFragment
 import me.firdaus1453.footballmatchschedulekt.R
-import me.firdaus1453.footballmatchschedulekt.mvp.match.MatchFragment
+import me.firdaus1453.footballmatchschedulekt.mvp.team.MainTeamFragment
 
 class MainActivity : AppCompatActivity() {
     lateinit var toolbar: ActionBar
@@ -16,11 +15,11 @@ class MainActivity : AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_past -> {
-               movePastFragment()
+                moveMainMatchFragment()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_next -> {
-                moveNextFragment()
+                moveMainTeamFragment()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_favorite -> {
@@ -31,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         false
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,33 +38,24 @@ class MainActivity : AppCompatActivity() {
         toolbar = supportActionBar!!
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        movePastFragment()
+        moveMainMatchFragment()
     }
 
-    private fun movePastFragment() {
-        toolbar.title = "Past Match"
-        val bundle = Bundle()
-        bundle.putInt(MatchFragment.KEY_MENU, 2)
-        val fragment = MatchFragment()
-        fragment.arguments = bundle
-        addFragment(fragment)
-    }
-
-    private fun moveNextFragment() {
-        toolbar.title = "Next Match"
-        val bundle = Bundle()
-        bundle.putInt(MatchFragment.KEY_MENU, 1)
-        val fragment = MatchFragment()
-        fragment.arguments = bundle
+    private fun moveMainMatchFragment() {
+        toolbar.title = "Matchs"
+        val fragment = MainMatchFragment()
         addFragment(fragment)
     }
 
     private fun moveFavoriteFragment() {
-        toolbar.title = "Favorite Match"
-        val bundle = Bundle()
-        bundle.putInt(MatchFragment.KEY_MENU, 3)
-        val fragment = MatchFragment()
-        fragment.arguments = bundle
+        toolbar.title = "Favorite Match And Team"
+        val fragment = MainFavoriteFragment()
+        addFragment(fragment)
+    }
+
+    private fun moveMainTeamFragment() {
+        toolbar.title = "Teams"
+        val fragment = MainTeamFragment()
         addFragment(fragment)
     }
 

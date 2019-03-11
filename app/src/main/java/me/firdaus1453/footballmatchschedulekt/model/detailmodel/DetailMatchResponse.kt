@@ -4,6 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 data class DetailMatchResponse(
 
-	@field:SerializedName("events")
-	val events: List<EventsItem>
+    @field:SerializedName("events")
+    val events: List<EventsItem>
 )

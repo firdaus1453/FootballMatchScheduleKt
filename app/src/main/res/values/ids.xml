@@ -26,4 +26,13 @@
     <item name="tv_away_forward" type="id"/>
     <item name="tv_away_substitutes" type="id"/>
     <item name="tv_home_substitutes" type="id"/>
+    <item name="rv_match" type="id"/>
+    <item name="swipe_up" type="id"/>
+    <item name="spinner" type="id"/>
+    <item name="img_team" type="id"/>
+    <item name="tv_name_team" type="id"/>
+    <item name="img_player" type="id"/>
+    <item name="tv_name_player" type="id"/>
+    <item name="tv_position_player" type="id"/>
+    <item name="btnNotify" type="id"/>
 </resources>

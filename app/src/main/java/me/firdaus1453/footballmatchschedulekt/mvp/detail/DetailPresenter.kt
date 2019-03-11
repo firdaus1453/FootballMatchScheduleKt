@@ -4,48 +4,49 @@ import android.content.Context
 import android.database.sqlite.SQLiteConstraintException
 import android.util.Log
 import com.google.gson.Gson
-import me.firdaus1453.footballclubmodul6.network.ApiRepository
-import me.firdaus1453.footballclubmodul6.network.TheSportDBApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import me.firdaus1453.footballmatchschedulekt.Utils.CoroutineContextProvider
 import me.firdaus1453.footballmatchschedulekt.helper.database
 import me.firdaus1453.footballmatchschedulekt.model.favorite.FavoriteModel
 import me.firdaus1453.footballmatchschedulekt.model.nextmatchmodel.EventsItem
 import me.firdaus1453.footballmatchschedulekt.model.nextmatchmodel.NextMatchResponse
 import me.firdaus1453.footballmatchschedulekt.model.teammodel.TeamResponse
+import me.firdaus1453.footballmatchschedulekt.network.ApiRepository
+import me.firdaus1453.footballmatchschedulekt.network.TheSportDBApi
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
-import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
 
 class DetailPresenter(
     private val view: DetailView,
     private val apiRepository: ApiRepository,
-    private val gson: Gson
+    private val gson: Gson,
+    private val context: CoroutineContextProvider = CoroutineContextProvider()
 ) {
     fun getDetailMatch(idEvent: String?) {
         view.showLoading()
-        doAsync {
+        GlobalScope.launch(context.main) {
             val data = gson.fromJson(
-                apiRepository.doRequest(TheSportDBApi.getDetailMatch(idEvent)), NextMatchResponse::class.java
+                apiRepository.doRequest(TheSportDBApi.getDetailMatch(idEvent)).await(), NextMatchResponse::class.java
             )
-
-            uiThread {
-                view.hideLoading()
+            if (!data.events.isNullOrEmpty()) {
                 view.showMatchDetail(data.events)
             }
+            view.hideLoading()
         }
     }
 
     fun getTeamDetail(idHomeTeam: String?, idAwayTeam: String?) {
         view.showLoading()
 
-        doAsync {
+        GlobalScope.launch(context.main) {
             val dataHomeTeam =
                 gson.fromJson(
                     apiRepository
-                        .doRequest(TheSportDBApi.getDetailTeam(idHomeTeam)),
+                        .doRequest(TheSportDBApi.getDetailTeam(idHomeTeam)).await(),
                     TeamResponse::class.java
                 )
 
@@ -53,15 +54,14 @@ class DetailPresenter(
             val dataAwayTeam =
                 gson.fromJson(
                     apiRepository
-                        .doRequest(TheSportDBApi.getDetailTeam(idAwayTeam)),
+                        .doRequest(TheSportDBApi.getDetailTeam(idAwayTeam)).await(),
                     TeamResponse::class.java
                 )
 
-            uiThread {
-                view.hideLoading()
+            if (!dataAwayTeam.teams.isNullOrEmpty() && !dataHomeTeam.teams.isNullOrEmpty()) {
                 view.showDetailTeam(dataHomeTeam.teams, dataAwayTeam.teams)
             }
-
+            view.hideLoading()
         }
     }
 
@@ -77,7 +77,8 @@ class DetailPresenter(
                     FavoriteModel.ID_AWAY to data[0].idAwayTeam,
                     FavoriteModel.TEAM_AWAY to data[0].strAwayTeam,
                     FavoriteModel.SCORE_AWAY to data[0].intAwayScore,
-                    FavoriteModel.EVENT_DATE to data[0].dateEvent
+                    FavoriteModel.EVENT_DATE to data[0].dateEvent,
+                    FavoriteModel.EVENT_TIME to data[0].strTime
                 )
             }
         } catch (e: SQLiteConstraintException) {
@@ -93,7 +94,7 @@ class DetailPresenter(
                     "id" to teams[0].idEvent.toString()
                 )
             }
-        }catch (e: SQLiteConstraintException) {
+        } catch (e: SQLiteConstraintException) {
             context.toast("Error: ${e.message}")
         }
     }
@@ -103,10 +104,12 @@ class DetailPresenter(
 
         context.database.use {
 
-                val result = select(FavoriteModel.TABLE_FAVORITE)
-                    .whereArgs( FavoriteModel.EVENT_ID +" = {id}",
-                        "id" to data[0].idEvent.toString())
-                val favorite = result.parseList(classParser<FavoriteModel>())
+            val result = select(FavoriteModel.TABLE_FAVORITE)
+                .whereArgs(
+                    FavoriteModel.EVENT_ID + " = {id}",
+                    "id" to data[0].idEvent.toString()
+                )
+            val favorite = result.parseList(classParser<FavoriteModel>())
             bFavorite = !favorite.isEmpty()
             Log.i("debug favo", bFavorite.toString())
         }

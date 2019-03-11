@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 data class NextMatchResponse(
 
 	@field:SerializedName("events")
-	val events: List<EventsItem>
+	val events: List<EventsItem>? = null
 )

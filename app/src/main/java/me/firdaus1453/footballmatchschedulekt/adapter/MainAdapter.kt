@@ -1,15 +1,14 @@
-package me.firdaus1453.footballclubmodul6.adapter
+package me.firdaus1453.footballmatchschedulekt.adapter
 
 import android.graphics.Typeface
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import me.firdaus1453.footballclubmodul6.DateTime
 import me.firdaus1453.footballmatchschedulekt.R
+import me.firdaus1453.footballmatchschedulekt.Utils.DateTime
 import me.firdaus1453.footballmatchschedulekt.model.nextmatchmodel.EventsItem
 import org.jetbrains.anko.*
 import org.jetbrains.anko.cardview.v7.cardView
@@ -31,7 +30,7 @@ class MainAdapter(private val teams: List<EventsItem>, private val listener: (Ev
         private val scoreAwayTeam: TextView = view.findViewById(R.id.tv_away_score)
 
         fun bindItem(teams: EventsItem, listener: (EventsItem) -> Unit) {
-            matchDate.text = DateTime.getLongDate(teams.dateEvent)
+            matchDate.text = "${DateTime.getLongDate(teams.dateEvent)} \n ${DateTime.timeFormat(teams.strTime)}"
             nameHomeTeam.text = teams.strHomeTeam
             nameAwayteam.text = teams.strAwayTeam
 
@@ -51,7 +50,8 @@ class MainAdapter(private val teams: List<EventsItem>, private val listener: (Ev
 class TeamUI : AnkoComponent<ViewGroup> {
     override fun createView(ui: AnkoContext<ViewGroup>): View {
         return with(ui) {
-            cardView {lparams(matchParent, wrapContent){
+            cardView {
+                lparams(matchParent, wrapContent){
                 setMargins(dip(3),dip(5),dip(3),dip(0))
             }
 
