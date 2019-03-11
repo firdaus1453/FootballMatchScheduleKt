@@ -8,7 +8,7 @@
 > Hidup hanyalah mimpi dan Akhirat adalah kenyataan
 
 
-# Screen Shoot
+# ScreenShot
 ![Football Group](https://user-images.githubusercontent.com/20089079/54140198-0c91b100-445e-11e9-8633-ac30b10f5165.png)
 
 
